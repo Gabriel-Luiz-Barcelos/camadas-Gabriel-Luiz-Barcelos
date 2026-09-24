@@ -1,6 +1,6 @@
 # Respostas
 
-Nome:
+Nome: Gabriel Luiz Barcelos
 
 Como responder: nas questões objetivas, escreva a letra depois de **Resposta:**. A justificativa é opcional, mas ajuda na correção. Nas discursivas, escreva seu texto logo abaixo do enunciado.
 
@@ -37,11 +37,11 @@ C) A asserção I é uma proposição verdadeira, e a II é uma proposição fal
 D) A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.
 E) As asserções I e II são proposições falsas.
 
-**Resposta:**
+**Resposta:** A
 
 **Justificativa (opcional):**
 
----
+--- A um está certa pois o controller recebe via construtor e não faz o new. A 2 também é verdadeira e justifica a 1 porque é isso que acontece mesmo no server.ts, conseguimos troxar a implementação, inclusive por um fake teste.
 
 ### Questão 2
 
@@ -66,11 +66,11 @@ C) `const company = db.prepare('SELECT * FROM companies WHERE id = ' + companyId
 D) `res.send(\`<h1>${name} created</h1>\`)`
 E) `const net = gross - gross * 0.11`
 
-**Resposta:**
+**Resposta:** E
 
 **Justificativa (opcional):**
 
----
+--- É o mesmo cálculo que foi feito no EmplyeeService, o desconto do INSS, e continuaria valendo numa planilha.
 
 ### Questão 3
 
@@ -94,11 +94,11 @@ C) II e IV, apenas.
 D) I, II e IV, apenas.
 E) I, II, III e IV.
 
-**Resposta:**
+**Resposta:** D
 
 **Justificativa (opcional):**
 
----
+--- A única falsa é a três, porque o repository não valida nada, só executa o SQL.
 
 ## Parte 4: estudo de caso
 
@@ -128,11 +128,11 @@ C) II, apenas.
 D) II e III, apenas.
 E) I, II e III.
 
-**Resposta:**
+**Resposta:** B
 
 **Justificativa (opcional):**
 
----
+--- A 1 é verdadeira porque CSV só é uma nova rota reaproveitando o Service. A 2 também é verdadeira porque o INSS fica concentrado no employee.service.ts consultando o state da empresa. As outras são falsas.
 
 ### Questão 5
 
@@ -152,11 +152,11 @@ C) A asserção I é uma proposição verdadeira, e a II é uma proposição fal
 D) A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.
 E) As asserções I e II são proposições falsas.
 
-**Resposta:**
+**Resposta:**C
 
 **Justificativa (opcional):**
 
----
+--- A um é verdadeira porque no monólito tudo fica na mesma rota. A dois está errada, porque Typescript garante checagem de tipos, não impede erros de lógica em outras partes do sistema.
 
 ### Questão 6 (discursiva)
 
@@ -172,7 +172,8 @@ c) cite os arquivos do seu projeto que seriam alterados para atendê-lo.
 
 **Resposta:**
 
----
+--- 
+O pedido que continua exigindo mais esforço mesmo com as camadas prontas é o b, alíquota de INSS diferente por estado, mas não elimina a complexidade do que precisa ser modelado, são até 27 alíquotas diferentes, uma por UF que precisam vir de algum lugar e uma tabela nova no banco ou um arquivo de configuração e cada uma precisaria ser testada. Camadas reduzem o raio de impacto da mudança, não o esforço de domínio necessário para implementá-la corretamente. Arquivos alterados: src/services/employee.service.ts
 
 ### Questão 7 (discursiva)
 
@@ -187,3 +188,6 @@ c) descreva como você corrigiu, ou como corrigiria.
 (Até 10 linhas.)
 
 **Resposta:**
+
+O erro foi "erro tratado em cada rota". Ao escrever o método findByCompany do EmployeeController (em src/controllers/employee.controller.ts)quase caputei o erro NotFound do service e responder diretamente com res.status(404).json({ message: 'not found' }) dentro do próprio catch, em vez de repassar com next(error). Corrigi mantendo o padrão usado no EmployeeController.create que apenas chama next(error) em todo catch, deixando o error.middleware.ts ser o único lugar do projeto que traduz cada erro de domínio em um status HTTP.
+
