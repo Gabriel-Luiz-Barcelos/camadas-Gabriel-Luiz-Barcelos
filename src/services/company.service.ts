@@ -34,9 +34,9 @@ export class CompanyService {
 
     const employees = this.employees.findByCompany(id)
     if (employees.length > 0) {
-      throw new RuleViolation('cannot delete company with employees')
+        throw new RuleViolation('cannot remove company with employees')
     }
 
-    this.companies.delete(id)
+    this.companies.remove(id)
   }
 }

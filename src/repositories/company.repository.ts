@@ -30,7 +30,7 @@ export class CompanyRepository {
     return this.findById(result.lastInsertRowid as number) as Company
   }
 
-  delete(id: number): void {
+  remove(id: number): void {
     this.db.prepare('DELETE FROM companies WHERE id = ?').run(id)
   }
 }

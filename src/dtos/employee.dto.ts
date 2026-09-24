@@ -10,19 +10,19 @@ export function employeeDTO(body: unknown): NewEmployee {
   const companyId = data.companyId
 
   if (typeof name !== 'string' || name.trim().length < 3) {
-    throw new InvalidInput('name must have at least 3 characters')
+    throw new InvalidInput(['name'])
   }
 
   if (typeof email !== 'string' || !email.includes('@')) {
-    throw new InvalidInput('email must contain @')
+    throw new InvalidInput(['email'])
   }
 
   if (typeof salary !== 'number' || salary <= 0) {
-    throw new InvalidInput('salary must be a positive number')
+    throw new InvalidInput(['salary'])
   }
 
   if (typeof companyId !== 'number') {
-    throw new InvalidInput('companyId must be a number')
+    throw new InvalidInput(['companyId'])
   }
 
   return { name: name.trim(), email: email.trim(), salary, companyId }
